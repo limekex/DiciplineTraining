@@ -1,17 +1,20 @@
-//
-//  DiciplineTrainingApp.swift
-//  DiciplineTraining
-//
-//  Created by Bjørn-Tore Almås on 20/11/2025.
-//
-
 import SwiftUI
 
 @main
-struct DiciplineTrainingApp: App {
+struct DisciplineApp: App {
+    @StateObject private var appState = AppState()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Group {
+                if appState.isOnboarded {
+                    MainView()
+                        .environmentObject(appState)
+                } else {
+                    OnboardingView()
+                        .environmentObject(appState)
+                }
+            }
         }
     }
 }

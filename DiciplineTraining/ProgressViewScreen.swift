@@ -1,3 +1,11 @@
+//
+//  ProgressViewScreen.swift
+//  DiciplineTraining
+//
+//  Created by Bjørn-Tore Almås on 20/11/2025.
+//
+
+
 import SwiftUI
 
 struct ProgressViewScreen: View {

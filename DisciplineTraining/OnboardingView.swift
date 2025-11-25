@@ -79,13 +79,17 @@ struct OnboardingView: View {
                         }
                         
                         VStack(alignment: .leading, spacing: 12) {
-                            Text("Jeg forplikter meg til \(daysPerWeek) dager i uka")
-                                .font(.body)
-                                .foregroundStyle(Theme.textPrimary)
-                            
-                            Stepper("Antall treningsdager per uke: \(daysPerWeek)", value: $daysPerWeek, in: 2...6)
-                                .labelsHidden()
-                                .tint(Theme.accentPrimary)
+                            HStack {
+                                Text("Jeg forplikter meg til \(daysPerWeek) dager i uka")
+                                    .font(.body)
+                                    .foregroundStyle(Theme.textPrimary)
+                                
+                                Spacer()
+                                
+                                Stepper("Antall treningsdager per uke: \(daysPerWeek)", value: $daysPerWeek, in: 2...6)
+                                    .labelsHidden()
+                                    .tint(Theme.accentPrimary)
+                            }
                         }
                     }
                     .themedCard()

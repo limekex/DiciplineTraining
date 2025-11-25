@@ -3,8 +3,7 @@
 //  DisciplineTraining
 //
 //  UI Theme & Design System
-//  Requires: Foundation, SwiftUI
-//  Dependencies: DailyCheckIn struct from TrainingExperience.swift (for CheckInRow component)
+//  Note: CheckInRow component requires DailyCheckIn struct from TrainingExperience.swift
 //
 
 import SwiftUI

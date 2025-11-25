@@ -55,7 +55,7 @@ struct OnboardingView: View {
                                 }
                             }
                             .pickerStyle(.segmented)
-                            .colorMultiply(Theme.accentPrimary)
+                            .tint(Theme.accentPrimary)
                         }
                     }
                     .themedCard()

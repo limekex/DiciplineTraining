@@ -3,6 +3,8 @@
 //  DisciplineTraining
 //
 //  UI Theme & Design System
+//  Requires: Foundation, SwiftUI
+//  Dependencies: TrainingExperience.swift (for CheckInRow component)
 //
 
 import SwiftUI

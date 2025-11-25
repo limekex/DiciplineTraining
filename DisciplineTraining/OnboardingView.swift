@@ -83,7 +83,7 @@ struct OnboardingView: View {
                                 .font(.body)
                                 .foregroundStyle(Theme.textPrimary)
                             
-                            Stepper("Juster dager", value: $daysPerWeek, in: 2...6)
+                            Stepper("Antall treningsdager per uke: \(daysPerWeek)", value: $daysPerWeek, in: 2...6)
                                 .labelsHidden()
                                 .tint(Theme.accentPrimary)
                         }

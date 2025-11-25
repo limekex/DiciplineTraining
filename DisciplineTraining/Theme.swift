@@ -4,7 +4,7 @@
 //
 //  UI Theme & Design System
 //  Requires: Foundation, SwiftUI
-//  Dependencies: TrainingExperience.swift (for CheckInRow component)
+//  Dependencies: DailyCheckIn struct from TrainingExperience.swift (for CheckInRow component)
 //
 
 import SwiftUI

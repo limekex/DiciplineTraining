@@ -1,5 +1,5 @@
 //
-//  ProgressViewScreen.swift
+//  ContentView.swift
 //  DisciplineTraining
 //
 //  Created by Bjørn-Tore Almås on 20/11/2025.

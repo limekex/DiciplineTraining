@@ -83,10 +83,9 @@ struct OnboardingView: View {
                                 .font(.body)
                                 .foregroundStyle(Theme.textPrimary)
                             
-                            Stepper(value: $daysPerWeek, in: 2...6) {
-                                Text("")
-                            }
-                            .tint(Theme.accentPrimary)
+                            Stepper("Juster dager", value: $daysPerWeek, in: 2...6)
+                                .labelsHidden()
+                                .tint(Theme.accentPrimary)
                         }
                     }
                     .themedCard()

@@ -175,3 +175,40 @@ struct DisciplineScoreDisplay: View {
         .padding(.vertical, Theme.cardPadding)
     }
 }
+
+// MARK: - Check-In Row
+
+/// Displays a single check-in row with status indicator and note
+struct CheckInRow: View {
+    let checkIn: DailyCheckIn
+    
+    var body: some View {
+        HStack(spacing: 12) {
+            // Status indicator
+            Circle()
+                .fill(checkIn.completedTraining ? Theme.accentSuccess : Theme.accentWarning)
+                .frame(width: 8, height: 8)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(checkIn.date.formatted(date: .abbreviated, time: .omitted))
+                    .font(.body)
+                    .foregroundStyle(Theme.textPrimary)
+                
+                Text(checkIn.completedTraining ? "Økt gjennomført" : "Ingen økt")
+                    .font(.caption)
+                    .foregroundStyle(Theme.textSecondary)
+            }
+            
+            Spacer()
+            
+            if let note = checkIn.note {
+                Text(note)
+                    .font(.caption)
+                    .foregroundStyle(Theme.textSecondary)
+                    .lineLimit(2)
+                    .frame(maxWidth: 100, alignment: .trailing)
+            }
+        }
+        .padding(.vertical, 8)
+    }
+}

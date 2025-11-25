@@ -35,7 +35,7 @@ struct UserProfile: Codable {
 
 /// En enkel logg for daglig innsjekk
 struct DailyCheckIn: Identifiable, Codable {
-    let id = UUID()
+    var id = UUID()
     let date: Date
     var plannedToTrain: Bool
     var completedTraining: Bool
@@ -50,6 +50,9 @@ final class AppState: ObservableObject {
     // Daglige check-ins
     @Published var checkIns: [DailyCheckIn] = []
     
+    // Latest coach message
+    @Published var lastCoachMessage: String? = nil
+
     // Enkel discipline score (0–100) basert på siste 14 dager
     var disciplineScore: Int {
         let calendar = Calendar.current
@@ -60,8 +63,22 @@ final class AppState: ObservableObject {
         guard !recent.isEmpty else { return 0 }
         
         let completed = recent.filter { $0.completedTraining }.count
-        let ratio = Double(completed) / Double(recent.count)
+        let total = recent.count
+        
+        // Unngå deling på null
+        guard total > 0 else { return 0 }
+        
+        let ratio = Double(completed) / Double(total)
         return Int((ratio * 100).rounded())
+    }
+    
+    // Load persisted state
+    init() {
+        if let persisted = PersistenceController.shared.load() {
+            isOnboarded = persisted.isOnboarded
+            userProfile = persisted.userProfile
+            checkIns = persisted.checkIns
+        }
     }
     
     // MARK: - Intent
@@ -69,6 +86,7 @@ final class AppState: ObservableObject {
     func completeOnboarding(with profile: UserProfile) {
         userProfile = profile
         isOnboarded = true
+        PersistenceController.shared.save(appState: self)
     }
     
     func logCheckIn(planned: Bool, completed: Bool, note: String? = nil) {
@@ -90,5 +108,8 @@ final class AppState: ObservableObject {
             )
             checkIns.append(entry)
         }
+        PersistenceController.shared.save(appState: self)
+        // Generate coach message
+        lastCoachMessage = CoachEngine.shared.message(for: self)
     }
 }

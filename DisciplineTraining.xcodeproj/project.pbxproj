@@ -1,0 +1,287 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2E4E3E7D2CF34D3C00782A2D /* DisciplineTrainingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4E3E7C2CF34D3C00782A2D /* DisciplineTrainingApp.swift */; };
+		2E4E3E7F2CF34D3C00782A2D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4E3E7E2CF34D3C00782A2D /* ContentView.swift */; };
+		2E4E3E822CF34D3D00782A2D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E4E3E812CF34D3D00782A2D /* Assets.xcassets */; };
+		2E4E3E852CF34D3D00782A2D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E4E3E842CF34D3D00782A2D /* Preview Assets.xcassets */; };
+		AABBCC012CF34D3C00782A2D /* TrainingExperience.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCC002CF34D3C00782A2D /* TrainingExperience.swift */; };
+		AABBCC032CF34D3C00782A2D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCC022CF34D3C00782A2D /* ProfileView.swift */; };
+		AABBCC052CF34D3C00782A2D /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCC042CF34D3C00782A2D /* NotificationManager.swift */; };
+		AABBCC072CF34D3C00782A2D /* ProgressViewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCC062CF34D3C00782A2D /* ProgressViewScreen.swift */; };
+		AABBCC092CF34D3C00782A2D /* CoachEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCC082CF34D3C00782A2D /* CoachEngine.swift */; };
+		AABBCC112CF34D3C00782A2D /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCC102CF34D3C00782A2D /* TodayView.swift */; };
+		AABBCC132CF34D3C00782A2D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCC122CF34D3C00782A2D /* MainView.swift */; };
+		AABBCC152CF34D3C00782A2D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCC142CF34D3C00782A2D /* OnboardingView.swift */; };
+		AABBCC172CF34D3C00782A2D /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCC162CF34D3C00782A2D /* PersistenceController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2E4E3E7B2CF34D3C00782A2D /* DisciplineTraining.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DisciplineTraining.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E4E3E7C2CF34D3C00782A2D /* DisciplineTrainingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisciplineTrainingApp.swift; sourceTree = "<group>"; };
+		2E4E3E7E2CF34D3C00782A2D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		2E4E3E812CF34D3D00782A2D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2E4E3E842CF34D3D00782A2D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2E4E3E872CF34D3D00782A2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AABBCC002CF34D3C00782A2D /* TrainingExperience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingExperience.swift; sourceTree = "<group>"; };
+		AABBCC022CF34D3C00782A2D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		AABBCC042CF34D3C00782A2D /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		AABBCC062CF34D3C00782A2D /* ProgressViewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewScreen.swift; sourceTree = "<group>"; };
+		AABBCC082CF34D3C00782A2D /* CoachEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachEngine.swift; sourceTree = "<group>"; };
+		AABBCC102CF34D3C00782A2D /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		AABBCC122CF34D3C00782A2D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		AABBCC142CF34D3C00782A2D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		AABBCC162CF34D3C00782A2D /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		AABBCC182CF34D3C00782A2D /* ../Tests/PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ../Tests/PersistenceTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2E4E3E772CF34D3C00782A2D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2E4E3E752CF34D3C00782A2D = {
+			isa = PBXGroup;
+			children = (
+				2E4E3E802CF34D3C00782A2D /* DisciplineTraining */,
+				2E4E3E7A2CF34D3C00782A2D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2E4E3E7A2CF34D3C00782A2D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2E4E3E7B2CF34D3C00782A2D /* DisciplineTraining.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2E4E3E802CF34D3C00782A2D /* DisciplineTraining */ = {
+			isa = PBXGroup;
+			children = (
+				2E4E3E7C2CF34D3C00782A2D /* DisciplineTrainingApp.swift */,
+				2E4E3E7E2CF34D3C00782A2D /* ContentView.swift */,
+				AABBCC002CF34D3C00782A2D /* TrainingExperience.swift */,
+				AABBCC022CF34D3C00782A2D /* ProfileView.swift */,
+				AABBCC042CF34D3C00782A2D /* NotificationManager.swift */,
+				AABBCC062CF34D3C00782A2D /* ProgressViewScreen.swift */,
+				AABBCC082CF34D3C00782A2D /* CoachEngine.swift */,
+				AABBCC102CF34D3C00782A2D /* TodayView.swift */,
+				AABBCC122CF34D3C00782A2D /* MainView.swift */,
+				AABBCC142CF34D3C00782A2D /* OnboardingView.swift */,
+				AABBCC162CF34D3C00782A2D /* PersistenceController.swift */,
+				AABBCC182CF34D3C00782A2D /* ../Tests/PersistenceTests.swift */,
+				2E4E3E812CF34D3D00782A2D /* Assets.xcassets */,
+				2E4E3E832CF34D3D00782A2D /* Preview Content */,
+				2E4E3E872CF34D3D00782A2D /* Info.plist */,
+			);
+			path = DisciplineTraining;
+			sourceTree = "<group>";
+		};
+		2E4E3E832CF34D3D00782A2D /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				2E4E3E842CF34D3D00782A2D /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2E4E3E792CF34D3C00782A2D /* DisciplineTraining */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E4E3E8A2CF34D3D00782A2D /* Build configuration list for PBXNativeTarget "DisciplineTraining" */;
+			buildPhases = (
+				2E4E3E762CF34D3C00782A2D /* Sources */,
+				2E4E3E772CF34D3C00782A2D /* Frameworks */,
+				2E4E3E782CF34D3C00782A2D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DisciplineTraining;
+			packageProductDependencies = (
+			);
+			productName = DisciplineTraining;
+			productReference = 2E4E3E7B2CF34D3C00782A2D /* DisciplineTraining.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2E4E3E732CF34D3C00782A2D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					2E4E3E792CF34D3C00782A2D = {
+						CreatedOnToolsVersion = 15.2;
+					};
+				};
+			};
+			buildConfigurationList = 2E4E3E882CF34D3D00782A2D /* Build configuration list for PBXProject "DisciplineTraining" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2E4E3E752CF34D3C00782A2D;
+			productRefGroup = 2E4E3E7A2CF34D3C00782A2D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2E4E3E792CF34D3C00782A2D /* DisciplineTraining */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2E4E3E782CF34D3C00782A2D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E4E3E852CF34D3D00782A2D /* Preview Assets.xcassets in Resources */,
+				2E4E3E822CF34D3D00782A2D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2E4E3E762CF34D3C00782A2D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E4E3E7D2CF34D3C00782A2D /* DisciplineTrainingApp.swift in Sources */,
+				AABBCC112CF34D3C00782A2D /* TodayView.swift in Sources */,
+				AABBCC132CF34D3C00782A2D /* MainView.swift in Sources */,
+				AABBCC152CF34D3C00782A2D /* OnboardingView.swift in Sources */,
+				AABBCC172CF34D3C00782A2D /* PersistenceController.swift in Sources */,
+				AABBCC092CF34D3C00782A2D /* CoachEngine.swift in Sources */,
+				AABBCC072CF34D3C00782A2D /* ProgressViewScreen.swift in Sources */,
+				AABBCC052CF34D3C00782A2D /* NotificationManager.swift in Sources */,
+				AABBCC032CF34D3C00782A2D /* ProfileView.swift in Sources */,
+				AABBCC012CF34D3C00782A2D /* TrainingExperience.swift in Sources */,
+				2E4E3E7F2CF34D3C00782A2D /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2E4E3E892CF34D3D00782A2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DisciplineTraining/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.DisciplineTraining;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2E4E3E8B2CF34D3D00782A2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DisciplineTraining/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.DisciplineTraining;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2E4E3E8C2CF34D3D00782A2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_ASSET_PATHS = "\"DisciplineTraining/Preview Content\"";
+				INFOPLIST_KEY_CFBundleDisplayName = DisciplineTrainer;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2E4E3E8D2CF34D3D00782A2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_ASSET_PATHS = "\"DisciplineTraining/Preview Content\"";
+				INFOPLIST_KEY_CFBundleDisplayName = DisciplineTrainer;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2E4E3E882CF34D3D00782A2D /* Build configuration list for PBXProject "DisciplineTraining" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E4E3E892CF34D3D00782A2D /* Debug */,
+				2E4E3E8B2CF34D3D00782A2D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2E4E3E8A2CF34D3D00782A2D /* Build configuration list for PBXNativeTarget "DisciplineTraining" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E4E3E8C2CF34D3D00782A2D /* Debug */,
+				2E4E3E8D2CF34D3D00782A2D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2E4E3E732CF34D3C00782A2D /* Project object */;
+}

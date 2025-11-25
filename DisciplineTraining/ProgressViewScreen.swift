@@ -1,10 +1,12 @@
 //
-//  ProgressViewScreen.swift
-//  DiciplineTraining
+//  MainView.swift
+//  DisciplineTraining
 //
 //  Created by Bjørn-Tore Almås on 20/11/2025.
 //
 
+
+import SwiftUI
 
 import SwiftUI
 

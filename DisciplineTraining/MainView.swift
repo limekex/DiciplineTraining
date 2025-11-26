@@ -28,5 +28,7 @@ struct MainView: View {
                     Label("Profil", systemImage: "person.fill")
                 }
         }
+        .accentColor(Theme.accentPrimary)
+        .preferredColorScheme(.dark)
     }
 }

@@ -197,6 +197,7 @@
 		2E4E3E892CF34D3D00782A2D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -219,6 +220,7 @@
 		2E4E3E8B2CF34D3D00782A2D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -242,6 +244,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_ASSET_PATHS = "\"DisciplineTraining/Preview Content\"";
+				DEVELOPMENT_TEAM = J3NNZ4NTF8;
 				INFOPLIST_KEY_CFBundleDisplayName = DisciplineTrainer;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
@@ -257,6 +260,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEVELOPMENT_ASSET_PATHS = "\"DisciplineTraining/Preview Content\"";
+				DEVELOPMENT_TEAM = J3NNZ4NTF8;
 				INFOPLIST_KEY_CFBundleDisplayName = DisciplineTrainer;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;

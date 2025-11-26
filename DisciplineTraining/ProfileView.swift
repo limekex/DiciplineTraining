@@ -11,7 +11,8 @@ import UserNotifications
 
 struct ProfileView: View {
     @EnvironmentObject var appState: AppState
-    @State private var notificationsEnabled: Bool = false
+    @AppStorage("remindersEnabled") private var remindersEnabled: Bool = false
+    @AppStorage("reminderTimeInterval") private var reminderTimeInterval: TimeInterval = 20 * 3600 // Default 20:00
     
     var body: some View {
         NavigationStack {
@@ -78,40 +79,82 @@ struct ProfileView: View {
                             .font(.caption.bold())
                             .foregroundStyle(Theme.textSecondary)
                         
-                        Toggle("Daglig påminnelse om innsjekk", isOn: $notificationsEnabled)
+                        Toggle("Daglig påminnelse om innsjekk", isOn: $remindersEnabled)
                             .tint(Theme.accentPrimary)
-                            .onChange(of: notificationsEnabled) { newValue in
-                                if newValue {
-                                    NotificationManager.shared.requestAuthorization { granted in
-                                        if granted {
-                                            NotificationManager.shared.scheduleDailyReminder()
-                                        } else {
-                                            // Revert toggle if permission denied
-                                            notificationsEnabled = false
-                                        }
-                                    }
-                                } else {
-                                    NotificationManager.shared.cancelReminder()
-                                }
+                            .onChange(of: remindersEnabled) { newValue in
+                                handleRemindersToggle(enabled: newValue)
                             }
+                        
+                        // Reminder time picker, shown only when reminders are enabled
+                        if remindersEnabled {
+                            DatePicker("Påminnelse tid:", selection: reminderTimeBinding, displayedComponents: .hourAndMinute)
+                                .labelsHidden()
+                                .foregroundStyle(Theme.textPrimary)
+                        }
                     }
                     .themedCard()
                     
                     Spacer(minLength: Theme.sectionSpacing)
                 }
-                .padding(Theme.globalPadding)
+                .onAppear(perform: syncNotificationToggle)
             }
+            .padding(.horizontal)
             .background(Theme.backgroundPrimary)
-            .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                // Check current notification settings and set toggle
-                UNUserNotificationCenter.current().getNotificationSettings { settings in
-                    DispatchQueue.main.async {
-                        notificationsEnabled = (settings.authorizationStatus == .authorized)
-                    }
+            .navigationTitle("Profil")
+            .toolbar(.hidden)
+        }
+    }
+    
+    private var reminderTimeBinding: Binding<Date> {
+        Binding<Date>(
+            get: {
+                let calendar = Calendar.current
+                let today = calendar.startOfDay(for: Date())
+                return today.addingTimeInterval(reminderTimeInterval)
+            },
+            set: { newDate in
+                let calendar = Calendar.current
+                let components = calendar.dateComponents([.hour, .minute], from: newDate)
+                let hour = components.hour ?? 0
+                let minute = components.minute ?? 0
+                reminderTimeInterval = TimeInterval(hour * 3600 + minute * 60)
+            }
+        )
+    }
+    
+    private func handleRemindersToggle(enabled: Bool) {
+        if enabled {
+            NotificationManager.shared.requestAuthorization { granted in
+                if granted {
+                    let calendar = Calendar.current
+                    let components = calendar.dateComponents([.hour, .minute], from: reminderTimeBinding.wrappedValue)
+                    
+                    NotificationManager.shared.scheduleDailyReminder(
+                        hour: components.hour ?? 20,
+                        minute: components.minute ?? 0
+                    )
+                } else {
+                    // Revert toggle if permission denied
+                    remindersEnabled = false
                 }
             }
+        } else {
+            NotificationManager.shared.cancelReminder()
         }
-        .preferredColorScheme(.dark)
+    }
+    
+    private func syncNotificationToggle() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            DispatchQueue.main.async {
+                remindersEnabled = settings.authorizationStatus == .authorized
+            }
+        }
+    }
+}
+
+struct ProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfileView()
+            .environmentObject(AppState())
     }
 }

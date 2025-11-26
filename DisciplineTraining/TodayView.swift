@@ -10,77 +10,99 @@ import SwiftUI
 struct TodayView: View {
     @EnvironmentObject var appState: AppState
     
+    // State for the form
     @State private var plannedToTrain: Bool = true
     @State private var completedTraining: Bool = false
     @State private var note: String = ""
     
+    // Focus state to control the keyboard
+    @FocusState private var isNoteFieldFocused: Bool
+
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: Theme.sectionSpacing) {
-                    // Header
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("I dag")
-                            .font(.title2.bold())
-                            .foregroundStyle(Theme.textPrimary)
-                        
-                        Text("Registrer din status for dagen")
-                            .font(.callout)
-                            .foregroundStyle(Theme.textSecondary)
+            // Use a ZStack to manage layers and gestures correctly
+            ZStack {
+                // Main background color that allows tapping to dismiss keyboard
+                Theme.backgroundPrimary
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        isNoteFieldFocused = false
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    // Check-in card
-                    VStack(alignment: .leading, spacing: 20) {
-                        Text("Dagens innsjekk")
-                            .font(.headline)
-                            .foregroundStyle(Theme.textPrimary)
-                        
-                        Toggle("Planen er å trene i dag", isOn: $plannedToTrain)
-                            .tint(Theme.accentPrimary)
-                        
-                        Toggle("Jeg har fullført dagens økt", isOn: $completedTraining)
-                            .tint(Theme.accentPrimary)
-                        
+
+                ScrollView {
+                    VStack(spacing: Theme.sectionSpacing) {
+                        // Header
                         VStack(alignment: .leading, spacing: 8) {
-                            Text("Notat (valgfritt)")
-                                .font(.subheadline)
-                                .foregroundStyle(Theme.textSecondary)
-                            
-                            TextField("Skriv her...", text: $note)
-                                .padding(12)
-                                .background(Theme.backgroundPrimary)
+                            Text("I dag")
+                                .font(.title2.bold())
                                 .foregroundStyle(Theme.textPrimary)
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                            
+                            Text("Registrer din status for dagen")
+                                .font(.callout)
+                                .foregroundStyle(Theme.textSecondary)
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        // Check-in card
+                        VStack(alignment: .leading, spacing: 20) {
+                            Text("Dagens innsjekk")
+                                .font(.headline)
+                                .foregroundStyle(Theme.textPrimary)
+                            
+                            Toggle("Planen er å trene i dag", isOn: $plannedToTrain)
+                                .tint(Theme.accentPrimary)
+                            
+                            Toggle("Jeg har fullført dagens økt", isOn: $completedTraining)
+                                .tint(Theme.accentPrimary)
+                            
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Notat (valgfritt)")
+                                    .font(.subheadline)
+                                    .foregroundStyle(Theme.textSecondary)
+                                
+                                TextField("Skriv her...", text: $note, axis: .vertical)
+                                    .lineLimit(3...)
+                                    .padding(12)
+                                    .background(Theme.backgroundPrimary.opacity(0.5))
+                                    .foregroundStyle(Theme.textPrimary)
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .focused($isNoteFieldFocused) // Bind focus state
+                            }
+                        }
+                        .themedCard()
+                        
+                        // Coach message if available
+                        if let message = appState.lastCoachMessage {
+                            CoachMessageCard(
+                                message: message,
+                                tone: determineCoachTone(message: message)
+                            )
+                        }
+                        
+                        // Save button
+                        Button {
+                            // Dismiss keyboard first
+                            isNoteFieldFocused = false
+                            
+                            // Log the check-in after a small delay to allow keyboard to dismiss
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                appState.logCheckIn(
+                                    planned: plannedToTrain,
+                                    completed: completedTraining,
+                                    note: note.isEmpty ? nil : note
+                                )
+                            }
+                        } label: {
+                            Text("Lagre dagens status")
+                        }
+                        .buttonStyle(PrimaryButtonStyle())
+                        
+                        Spacer(minLength: Theme.sectionSpacing)
                     }
-                    .themedCard()
-                    
-                    // Coach message if available
-                    if let message = appState.lastCoachMessage {
-                        CoachMessageCard(
-                            message: message,
-                            tone: determineCoachTone(message: message)
-                        )
-                    }
-                    
-                    // Save button
-                    Button {
-                        appState.logCheckIn(
-                            planned: plannedToTrain,
-                            completed: completedTraining,
-                            note: note.isEmpty ? nil : note
-                        )
-                    } label: {
-                        Text("Lagre dagens status")
-                    }
-                    .buttonStyle(PrimaryButtonStyle())
-                    
-                    Spacer(minLength: Theme.sectionSpacing)
+                    .padding(Theme.globalPadding)
                 }
-                .padding(Theme.globalPadding)
+                .scrollDismissesKeyboard(.interactively) // Modern way to dismiss keyboard on scroll
             }
-            .background(Theme.backgroundPrimary)
             .navigationBarTitleDisplayMode(.inline)
         }
         .preferredColorScheme(.dark)

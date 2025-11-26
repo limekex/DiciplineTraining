@@ -45,10 +45,19 @@ struct DailyCheckIn: Identifiable, Codable {
 final class AppState: ObservableObject {
     // Onboarding
     @AppStorage("isOnboarded") var isOnboarded: Bool = false
-    @Published var userProfile: UserProfile?
+    
+    @Published var userProfile: UserProfile? {
+        didSet {
+            save()
+        }
+    }
     
     // Daglige check-ins
-    @Published var checkIns: [DailyCheckIn] = []
+    @Published var checkIns: [DailyCheckIn] = [] {
+        didSet {
+            save()
+        }
+    }
     
     // Latest coach message
     @Published var lastCoachMessage: String? = nil
@@ -72,12 +81,17 @@ final class AppState: ObservableObject {
         return Int((ratio * 100).rounded())
     }
     
+    private let persistenceController: PersistenceController
+    
     // Load persisted state
-    init() {
-        if let persisted = PersistenceController.shared.load() {
-            isOnboarded = persisted.isOnboarded
-            userProfile = persisted.userProfile
-            checkIns = persisted.checkIns
+    init(persistenceController: PersistenceController = .shared) {
+        self.persistenceController = persistenceController
+        
+        if let persisted = persistenceController.load() {
+            // Viktig: Ikke kall didSet under initialisering
+            self._userProfile = Published(initialValue: persisted.userProfile)
+            self._checkIns = Published(initialValue: persisted.checkIns)
+            self.isOnboarded = persisted.isOnboarded
         }
     }
     
@@ -86,7 +100,7 @@ final class AppState: ObservableObject {
     func completeOnboarding(with profile: UserProfile) {
         userProfile = profile
         isOnboarded = true
-        PersistenceController.shared.save(appState: self)
+        // Lagring skjer nå automatisk via didSet
     }
     
     func logCheckIn(planned: Bool, completed: Bool, note: String? = nil) {
@@ -108,8 +122,15 @@ final class AppState: ObservableObject {
             )
             checkIns.append(entry)
         }
-        PersistenceController.shared.save(appState: self)
+        // Lagring skjer nå automatisk via didSet
+        
         // Generate coach message
         lastCoachMessage = CoachEngine.shared.message(for: self)
+    }
+    
+    // MARK: - Persistence
+    
+    private func save() {
+        persistenceController.save(appState: self)
     }
 }

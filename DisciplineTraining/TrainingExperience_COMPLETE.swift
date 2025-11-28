@@ -53,10 +53,6 @@ final class AppState: ObservableObject {
     // Onboarding
     @AppStorage("isOnboarded") var isOnboarded: Bool = false
     
-    // Notification settings
-    @AppStorage("reminderHour") var reminderHour: Int = 20
-    @AppStorage("reminderMinute") var reminderMinute: Int = 0
-    
     @Published var userProfile: UserProfile? {
         didSet {
             save()
@@ -102,7 +98,7 @@ final class AppState: ObservableObject {
             // Viktig: Ikke kall didSet under initialisering
             self._userProfile = Published(initialValue: persisted.userProfile)
             self._checkIns = Published(initialValue: persisted.checkIns)
-            // isOnboarded is handled by @AppStorage automatically - no need to load it here
+            self.isOnboarded = persisted.isOnboarded
         }
     }
     
@@ -112,6 +108,13 @@ final class AppState: ObservableObject {
         userProfile = profile
         isOnboarded = true
         // Lagring skjer nå automatisk via didSet
+    }
+    
+    func getTodaysCheckIn() -> DailyCheckIn? {
+        let today = Calendar.current.startOfDay(for: Date())
+        return checkIns.first(where: {
+            Calendar.current.isDate($0.date, inSameDayAs: today)
+        })
     }
     
     func logCheckIn(planned: Bool, completed: Bool, note: String? = nil) {
@@ -139,36 +142,9 @@ final class AppState: ObservableObject {
         lastCoachMessage = CoachEngine.shared.message(for: self)
     }
     
-    func getTodaysCheckIn() -> DailyCheckIn? {
-        let today = Calendar.current.startOfDay(for: Date())
-        return checkIns.first(where: {
-            Calendar.current.isDate($0.date, inSameDayAs: today)
-        })
-    }
-    
     func deleteCheckIn(id: UUID) {
         checkIns.removeAll(where: { $0.id == id })
         // Lagring skjer automatisk via didSet
-    }
-    
-    // MARK: - Debug & Testing
-    
-    /// Resets all app data and returns to onboarding
-    /// WARNING: This deletes all user data!
-    func resetApp() {
-        // Clear all data
-        userProfile = nil
-        checkIns = []
-        lastCoachMessage = nil
-        isOnboarded = false
-        
-        // Clear persisted data
-        persistenceController.clearAll()
-        
-        // Cancel any scheduled notifications
-        NotificationManager.shared.cancelReminder()
-        
-        print("🔄 App has been reset to initial state")
     }
     
     // MARK: - Progress & Analytics
@@ -201,105 +177,6 @@ final class AppState: ObservableObject {
         }
         
         return dataPoints
-    }
-    
-    // MARK: - Streak and Statistics
-    
-    /// Current active streak (consecutive days with completed training)
-    var currentStreak: Int {
-        guard !checkIns.isEmpty else { return 0 }
-        
-        let sortedCheckIns = checkIns.sorted(by: { $0.date > $1.date })
-        var streak = 0
-        var currentDate = Calendar.current.startOfDay(for: Date())
-        
-        for checkIn in sortedCheckIns {
-            let checkInDate = Calendar.current.startOfDay(for: checkIn.date)
-            
-            // If we find a day with completed training
-            if checkIn.completedTraining {
-                // Check if it's today or consecutive with previous day
-                if checkInDate == currentDate || Calendar.current.dateComponents([.day], from: checkInDate, to: currentDate).day == 1 {
-                    streak += 1
-                    currentDate = Calendar.current.date(byAdding: .day, value: -1, to: currentDate)!
-                } else {
-                    // Streak is broken
-                    break
-                }
-            } else {
-                // Day without completed training breaks the streak
-                break
-            }
-        }
-        
-        return streak
-    }
-    
-    /// Longest streak ever achieved
-    var longestStreak: Int {
-        guard !checkIns.isEmpty else { return 0 }
-        
-        let sortedCheckIns = checkIns.sorted(by: { $0.date < $1.date })
-        var maxStreak = 0
-        var currentStreak = 0
-        var lastDate: Date?
-        
-        for checkIn in sortedCheckIns {
-            guard checkIn.completedTraining else {
-                currentStreak = 0
-                lastDate = nil
-                continue
-            }
-            
-            let checkInDate = Calendar.current.startOfDay(for: checkIn.date)
-            
-            if let last = lastDate {
-                let daysDifference = Calendar.current.dateComponents([.day], from: last, to: checkInDate).day ?? 0
-                
-                if daysDifference == 1 {
-                    // Consecutive day
-                    currentStreak += 1
-                } else {
-                    // Gap in streak
-                    maxStreak = max(maxStreak, currentStreak)
-                    currentStreak = 1
-                }
-            } else {
-                // First check-in
-                currentStreak = 1
-            }
-            
-            lastDate = checkInDate
-        }
-        
-        return max(maxStreak, currentStreak)
-    }
-    
-    /// Completion rate for last N days (percentage of planned workouts that were completed)
-    func completionRate(lastDays: Int = 30) -> Double {
-        let cutoffDate = Calendar.current.date(byAdding: .day, value: -lastDays, to: Date())!
-        let recentCheckIns = checkIns.filter { $0.date >= cutoffDate }
-        
-        guard !recentCheckIns.isEmpty else { return 0.0 }
-        
-        let planned = recentCheckIns.filter { $0.plannedToTrain }.count
-        guard planned > 0 else { return 0.0 }
-        
-        let completed = recentCheckIns.filter { $0.completedTraining }.count
-        return (Double(completed) / Double(planned)) * 100.0
-    }
-    
-    /// Total workouts completed in last N days
-    func totalWorkouts(lastDays: Int = 30) -> Int {
-        let cutoffDate = Calendar.current.date(byAdding: .day, value: -lastDays, to: Date())!
-        return checkIns.filter { $0.date >= cutoffDate && $0.completedTraining }.count
-    }
-    
-    /// Average workouts per week in last N days
-    func averageWorkoutsPerWeek(lastDays: Int = 30) -> Double {
-        let totalWorkouts = Double(self.totalWorkouts(lastDays: lastDays))
-        let weeks = Double(lastDays) / 7.0
-        return totalWorkouts / weeks
     }
     
     // MARK: - Persistence

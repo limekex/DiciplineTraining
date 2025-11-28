@@ -327,8 +327,7 @@ struct InsightCard: View {
     @ObservedObject var appState: AppState
     
     var insightText: String? {
-        // Don't show insights until we have enough data (at least 7 check-ins)
-        guard appState.checkIns.count >= 7 else { return nil }
+        guard !appState.checkIns.isEmpty else { return nil }
         
         let completionRate = appState.completionRate(lastDays: 30)
         let currentStreak = appState.currentStreak

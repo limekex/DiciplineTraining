@@ -6,7 +6,6 @@ final class CoachEngine {
 
     func message(for appState: AppState) -> String {
         let score = appState.disciplineScore
-        let totalCheckIns = appState.checkIns.count
         
         guard let todaysCheckIn = appState.getTodaysCheckIn() else {
             return "Velkommen tilbake! Klar for dagens utfordring?"
@@ -16,23 +15,11 @@ final class CoachEngine {
         let completed = todaysCheckIn.completedTraining
         let streak = calculateStreak(from: appState.checkIns)
         
-        // For the first few check-ins, keep messages encouraging but neutral
-        if totalCheckIns <= 3 {
-            if completed {
-                return "Flott start! Fortsett å logge hver dag, så får du mer personlig feedback."
-            } else if planned {
-                return "Du planla å trene i dag. Selv om det ikke ble noe av det denne gangen, fortsett å logge – det bygger bevissthet."
-            } else {
-                return "Takk for at du logger! Jo mer data jeg får, jo bedre kan jeg hjelpe deg."
-            }
-        }
-        
         return generateMessage(
             score: score,
             planned: planned,
             completed: completed,
-            streak: streak,
-            totalCheckIns: totalCheckIns
+            streak: streak
         )
     }
     
@@ -60,7 +47,7 @@ final class CoachEngine {
         return streak
     }
     
-    private func generateMessage(score: Int, planned: Bool, completed: Bool, streak: Int, totalCheckIns: Int) -> String {
+    private func generateMessage(score: Int, planned: Bool, completed: Bool, streak: Int) -> String {
         // High score scenarios (>= 70)
         if score >= 70 {
             if completed {

@@ -1,7 +1,6 @@
 import Foundation
 
 struct PersistedState: Codable {
-    var isOnboarded: Bool
     var userProfile: UserProfile?
     var checkIns: [DailyCheckIn]
 }
@@ -27,7 +26,7 @@ final class PersistenceController {
 
     func save(appState: AppState) {
         guard let url = fileURL else { return }
-        let toSave = PersistedState(isOnboarded: appState.isOnboarded, userProfile: appState.userProfile, checkIns: appState.checkIns)
+        let toSave = PersistedState(userProfile: appState.userProfile, checkIns: appState.checkIns)
         do {
             let data = try JSONEncoder().encode(toSave)
             try data.write(to: url, options: [.atomic])
@@ -54,5 +53,12 @@ final class PersistenceController {
     func deleteSavedState() throws {
         guard let url = fileURL else { return }
         try FileManager.default.removeItem(at: url)
+    }
+    
+    /// Clears all persisted data (for app reset)
+    func clearAll() {
+        guard let url = fileURL else { return }
+        try? FileManager.default.removeItem(at: url)
+        print("🗑️ Cleared all persisted data")
     }
 }

@@ -11,6 +11,7 @@ import UserNotifications
 struct ProfileView: View {
     @EnvironmentObject var appState: AppState
     @AppStorage("remindersEnabled") private var remindersEnabled: Bool = false
+    @AppStorage("reminderTimeInterval") private var reminderTimeInterval: TimeInterval = 20 * 3600 // Default 20:00
     
     var body: some View {
         NavigationStack {
@@ -86,23 +87,14 @@ struct ProfileView: View {
                         if remindersEnabled {
                             DatePicker("Tidspunkt for påminnelse", selection: reminderTimeBinding, displayedComponents: .hourAndMinute)
                                 .tint(Theme.accentPrimary)
-                                .onChange(of: reminderTimeBinding.wrappedValue) { _ in
-                                    // Update reminder when time changes
-                                    print("⏰ ProfileView: Tidspunkt endret til \(appState.reminderHour):\(String(format: "%02d", appState.reminderMinute))")
-                                    if remindersEnabled {
-                                        NotificationManager.shared.scheduleDailyReminder(
-                                            hour: appState.reminderHour,
-                                            minute: appState.reminderMinute
-                                        )
-                                    }
-                                }
                         }
                     }
                     .themedCard()
                     
-                    // Reset section - ALWAYS VISIBLE
+                    // Debug section (only visible in debug builds)
+                    #if DEBUG
                     VStack(alignment: .leading, spacing: 16) {
-                        Text("AVANSERT")
+                        Text("DEBUG")
                             .font(.caption.bold())
                             .foregroundStyle(Theme.textSecondary)
                         
@@ -122,6 +114,7 @@ struct ProfileView: View {
                             .foregroundStyle(Theme.accentWarning)
                     }
                     .themedCard()
+                    #endif
                     
                     Spacer(minLength: Theme.sectionSpacing)
                 }
@@ -138,17 +131,15 @@ struct ProfileView: View {
         Binding<Date>(
             get: {
                 let calendar = Calendar.current
-                var components = DateComponents()
-                components.hour = appState.reminderHour
-                components.minute = appState.reminderMinute
-                return calendar.date(from: components) ?? Date()
+                let today = calendar.startOfDay(for: Date())
+                return today.addingTimeInterval(reminderTimeInterval)
             },
             set: { newDate in
                 let calendar = Calendar.current
                 let components = calendar.dateComponents([.hour, .minute], from: newDate)
-                appState.reminderHour = components.hour ?? 20
-                appState.reminderMinute = components.minute ?? 0
-                print("💾 ProfileView: Lagret ny tid - \(appState.reminderHour):\(String(format: "%02d", appState.reminderMinute))")
+                let hour = components.hour ?? 0
+                let minute = components.minute ?? 0
+                reminderTimeInterval = TimeInterval(hour * 3600 + minute * 60)
             }
         )
     }
@@ -157,21 +148,19 @@ struct ProfileView: View {
         if enabled {
             NotificationManager.shared.requestAuthorization { granted in
                 if granted {
-                    print("✅ ProfileView: Varsling aktivert - planlegger for \(self.appState.reminderHour):\(String(format: "%02d", self.appState.reminderMinute))")
+                    let calendar = Calendar.current
+                    let components = calendar.dateComponents([.hour, .minute], from: reminderTimeBinding.wrappedValue)
+                    
                     NotificationManager.shared.scheduleDailyReminder(
-                        hour: self.appState.reminderHour,
-                        minute: self.appState.reminderMinute
+                        hour: components.hour ?? 20,
+                        minute: components.minute ?? 0
                     )
                 } else {
-                    print("❌ ProfileView: Varsling ble avvist av bruker")
                     // Revert toggle if permission denied
-                    DispatchQueue.main.async {
-                        self.remindersEnabled = false
-                    }
+                    remindersEnabled = false
                 }
             }
         } else {
-            print("🔕 ProfileView: Varsling deaktivert")
             NotificationManager.shared.cancelReminder()
         }
     }

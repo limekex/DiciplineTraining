@@ -88,7 +88,6 @@ struct ProfileView: View {
                                 .tint(Theme.accentPrimary)
                                 .onChange(of: reminderTimeBinding.wrappedValue) { _ in
                                     // Update reminder when time changes
-                                    print("⏰ ProfileView: Tidspunkt endret til \(appState.reminderHour):\(String(format: "%02d", appState.reminderMinute))")
                                     if remindersEnabled {
                                         NotificationManager.shared.scheduleDailyReminder(
                                             hour: appState.reminderHour,
@@ -148,7 +147,6 @@ struct ProfileView: View {
                 let components = calendar.dateComponents([.hour, .minute], from: newDate)
                 appState.reminderHour = components.hour ?? 20
                 appState.reminderMinute = components.minute ?? 0
-                print("💾 ProfileView: Lagret ny tid - \(appState.reminderHour):\(String(format: "%02d", appState.reminderMinute))")
             }
         )
     }
@@ -157,21 +155,18 @@ struct ProfileView: View {
         if enabled {
             NotificationManager.shared.requestAuthorization { granted in
                 if granted {
-                    print("✅ ProfileView: Varsling aktivert - planlegger for \(self.appState.reminderHour):\(String(format: "%02d", self.appState.reminderMinute))")
                     NotificationManager.shared.scheduleDailyReminder(
-                        hour: self.appState.reminderHour,
-                        minute: self.appState.reminderMinute
+                        hour: appState.reminderHour,
+                        minute: appState.reminderMinute
                     )
                 } else {
-                    print("❌ ProfileView: Varsling ble avvist av bruker")
                     // Revert toggle if permission denied
                     DispatchQueue.main.async {
-                        self.remindersEnabled = false
+                        remindersEnabled = false
                     }
                 }
             }
         } else {
-            print("🔕 ProfileView: Varsling deaktivert")
             NotificationManager.shared.cancelReminder()
         }
     }

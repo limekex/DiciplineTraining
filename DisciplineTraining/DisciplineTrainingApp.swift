@@ -11,7 +11,7 @@ struct DisciplineApp: App {
                     MainView()
                         .environmentObject(appState)
                 } else {
-                    OnboardingView()
+                    OnboardingFlow()
                         .environmentObject(appState)
                 }
             }

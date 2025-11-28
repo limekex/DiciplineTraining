@@ -13,6 +13,7 @@
 		2E4E3E852CF34D3D00782A2D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E4E3E842CF34D3D00782A2D /* Preview Assets.xcassets */; };
 		9A37DFAC2ED6F71C002BB94D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37DFAA2ED6F71C002BB94D /* Theme.swift */; };
 		9A37DFAD2ED6F71C002BB94D /* ThemedComponentsPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37DFAB2ED6F71C002BB94D /* ThemedComponentsPreview.swift */; };
+		9A49B5102ED9D5B0007BA4CC /* OnboardingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A49B50F2ED9D5B0007BA4CC /* OnboardingFlow.swift */; };
 		AABBCC012CF34D3C00782A2D /* TrainingExperience.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCC002CF34D3C00782A2D /* TrainingExperience.swift */; };
 		AABBCC032CF34D3C00782A2D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCC022CF34D3C00782A2D /* ProfileView.swift */; };
 		AABBCC052CF34D3C00782A2D /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABBCC042CF34D3C00782A2D /* NotificationManager.swift */; };
@@ -33,6 +34,7 @@
 		2E4E3E872CF34D3D00782A2D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A37DFAA2ED6F71C002BB94D /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		9A37DFAB2ED6F71C002BB94D /* ThemedComponentsPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemedComponentsPreview.swift; sourceTree = "<group>"; };
+		9A49B50F2ED9D5B0007BA4CC /* OnboardingFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlow.swift; sourceTree = "<group>"; };
 		AABBCC002CF34D3C00782A2D /* TrainingExperience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingExperience.swift; sourceTree = "<group>"; };
 		AABBCC022CF34D3C00782A2D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		AABBCC042CF34D3C00782A2D /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		2E4E3E802CF34D3C00782A2D /* DisciplineTraining */ = {
 			isa = PBXGroup;
 			children = (
+				9A49B50F2ED9D5B0007BA4CC /* OnboardingFlow.swift */,
 				9A37DFAA2ED6F71C002BB94D /* Theme.swift */,
 				9A37DFAB2ED6F71C002BB94D /* ThemedComponentsPreview.swift */,
 				2E4E3E7C2CF34D3C00782A2D /* DisciplineTrainingApp.swift */,
@@ -183,6 +186,7 @@
 				AABBCC152CF34D3C00782A2D /* OnboardingView.swift in Sources */,
 				AABBCC172CF34D3C00782A2D /* PersistenceController.swift in Sources */,
 				AABBCC092CF34D3C00782A2D /* CoachEngine.swift in Sources */,
+				9A49B5102ED9D5B0007BA4CC /* OnboardingFlow.swift in Sources */,
 				AABBCC072CF34D3C00782A2D /* ProgressViewScreen.swift in Sources */,
 				AABBCC052CF34D3C00782A2D /* NotificationManager.swift in Sources */,
 				AABBCC032CF34D3C00782A2D /* ProfileView.swift in Sources */,
@@ -212,6 +216,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.DisciplineTraining;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -235,6 +240,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.DisciplineTraining;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -252,6 +258,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -268,6 +275,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
